@@ -25,6 +25,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var detailsStack: UIStackView!
     @IBOutlet weak var logoutButton: UIButton!
+    @IBOutlet weak var stackviewBack: UIImageView!
     
     
     @IBAction func logoutButton(_ sender: UIButton) {
@@ -56,6 +57,17 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         userCollectionRef = Firestore.firestore().collection("users")
+        //viewbackground
+              self.view.backgroundColor = UIColor(red: (45/255.0), green: (40/255.0), blue: (62/255.0), alpha: 1.0)
+              
+       //modify stack view
+        self.stackviewBack.layer.cornerRadius = self.photoImageView.frame.width/100.0
+        self.stackviewBack.clipsToBounds = true
+        self.stackviewBack.layer.shadowOpacity = 5.0
+        
+        //modify profile picture
+           self.photoImageView.layer.cornerRadius = self.photoImageView.frame.width/100.0
+           self.photoImageView.clipsToBounds = true
     }
 
     override func viewDidAppear(_ animated: Bool) {

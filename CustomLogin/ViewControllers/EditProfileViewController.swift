@@ -23,6 +23,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     @IBOutlet weak var firstnameEdit: UITextField!
     @IBOutlet weak var lastnameEdit: UITextField!
     @IBOutlet weak var emailEdit: UITextField!
+    @IBOutlet weak var stackviewBack: UIImageView!
     
     @IBAction func saveButton(_ sender: UIBarButtonItem) {
         let alert = UIAlertController(title: "Are you sure you want to save changes?", message: "", preferredStyle: UIAlertController.Style.alert)
@@ -38,15 +39,22 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         self.present(alert, animated: true, completion: nil)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        //modify profile picture
-        self.photoImageView.layer.cornerRadius = self.photoImageView.frame.width/100.0
-        self.photoImageView.clipsToBounds = true
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        //viewbackground
+        self.view.backgroundColor = UIColor(red: (45/255.0), green: (40/255.0), blue: (62/255.0), alpha: 1.0)
         
+        //modify profileimage
+        self.photoImageView.layer.cornerRadius = self.photoImageView.frame.width/100.0
+            self.photoImageView.clipsToBounds = true
+        
+        //modify stackview
+        self.stackviewBack.layer.cornerRadius = self.photoImageView.frame.width/100.0
+        self.stackviewBack.clipsToBounds = true
+        self.stackviewBack.layer.shadowOpacity = 5.0
+
+        
+        //user info
         self.emailEdit.text = AppData.shared.profileEmail
         self.firstnameEdit.text = AppData.shared.name
         self.lastnameEdit.text = AppData.shared.surname
