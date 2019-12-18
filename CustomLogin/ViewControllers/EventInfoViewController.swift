@@ -20,7 +20,7 @@ class EventInfoViewController: UIViewController {
     @IBOutlet weak var decLabel: UILabel!
     @IBOutlet weak var eventNameLabel: UILabel!
     
-    @IBOutlet weak var imageView: UIImageView!
+
     
     var name = ""
     var eventName = ""
@@ -38,26 +38,28 @@ class EventInfoViewController: UIViewController {
         eventNameLabel.text = eventName
         decLabel.text = dec
         dateLabel.text = date
-        locationLabel.text = location
+//        locationLabel.text = location
         let location = CLLocationCoordinate2D(latitude: latitude,
                                               longitude: longitude)
-        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
         let region = MKCoordinateRegion(center: location, span: span)
        mapView.setRegion(region, animated: true)
         
        let annotation = MKPointAnnotation()
        annotation.coordinate = location
-       annotation.title = "Event Location"
+       annotation.title = eventName
        mapView.addAnnotation(annotation)
         
+        //edit description
+        self.decLabel.layer.cornerRadius = 4
        
         
-        self.imageView.layer.cornerRadius = 8
+   /*     self.imageView.layer.cornerRadius = 8
         self.imageView.layer.shadowColor = UIColor.black.cgColor
         self.imageView.layer.shadowOpacity = 1
         self.imageView.layer.shadowOffset = .zero
         self.imageView.layer.shadowOpacity = 1
-     
+     */
     }
     /*
     func checkLocationServices(){
@@ -91,7 +93,16 @@ class EventInfoViewController: UIViewController {
     */
     @IBOutlet weak var mapView: MKMapView!
     
+    @IBAction func navigateButton(_ sender: UIButton) {
+        
+        let coordinate = CLLocationCoordinate2DMake(latitude,longitude)
+        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))
+        mapItem.name = "Target location"
+        mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
+    }
+    
 
+    
     /*
     // MARK: - Navigation
 
@@ -102,6 +113,7 @@ class EventInfoViewController: UIViewController {
     }
     */
 
+    
     @IBAction func openAppleMaps(_ sender: UITapGestureRecognizer) {
         
         let coordinate = CLLocationCoordinate2DMake(latitude,longitude)
